@@ -49,17 +49,26 @@ body::before{
     width:100%;
     object-fit:cover;
 
-    object-position:35% center; 
-    /* moves image slightly left so your face stays safe */
+    object-position:35% center;
 
+    /* DESKTOP — ONLY RIGHT FADE */
     mask-image:linear-gradient(
         to right,
-        black 85%,
-        rgba(0,0,0,0.9) 92%,
-        rgba(0,0,0,0.5) 96%,
+        black 82%,
+        rgba(0,0,0,0.95) 90%,
+        rgba(0,0,0,0.6) 96%,
+        transparent 100%
+    );
+
+    -webkit-mask-image:linear-gradient(
+        to right,
+        black 82%,
+        rgba(0,0,0,0.95) 90%,
+        rgba(0,0,0,0.6) 96%,
         transparent 100%
     );
 }
+
 
 /* CARD */
 
@@ -181,18 +190,51 @@ body::before{
 }
 
 .photo-box img{
+
     object-position:center 35%;
+
+    /* MOBILE — RIGHT + BOTTOM */
+    mask-image:
+    linear-gradient(to right,
+        black 85%,
+        rgba(0,0,0,0.9) 92%,
+        rgba(0,0,0,0.5) 96%,
+        transparent 100%
+    ),
+    linear-gradient(to bottom,
+        black 88%,
+        rgba(0,0,0,0.6) 96%,
+        transparent 100%
+    );
+
+    -webkit-mask-image:
+    linear-gradient(to right,
+        black 85%,
+        rgba(0,0,0,0.9) 92%,
+        rgba(0,0,0,0.5) 96%,
+        transparent 100%
+    ),
+    linear-gradient(to bottom,
+        black 88%,
+        rgba(0,0,0,0.6) 96%,
+        transparent 100%
+    );
 }
 
 /* CARD */
 .container{
     width:92%;
-    margin-top:24px;   /* positive space BELOW the image */
+    margin-top:24px;
     padding:34px;
     border-radius:26px;
-    border:1.5px solid rgba(255,255,255,0.65);
+
+    background:rgba(255,255,255,0.88); /* stronger contrast */
+
+    border:2px solid rgba(255,255,255,0.95); /* visible clean edge */
+
     box-shadow:0 20px 60px rgba(0,0,0,0.12);
 }
+
 
 /* TEXT */
 h1{
