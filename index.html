@@ -10,7 +10,7 @@
 body{
     margin:0;
     font-family:'Comic Sans MS', cursive, sans-serif;
-    overflow:hidden;
+    overflow-x:hidden; /* allow vertical scroll */
 }
 
 /* BLURRED BACKGROUND */
@@ -30,7 +30,7 @@ body::before{
     display:flex;
     align-items:center;
     justify-content:space-between;
-    height:100vh;
+    min-height:100svh;
     padding-right:10vw;
 }
 
@@ -159,20 +159,58 @@ button{
 
 @media (max-width:900px){
 
+body::before{
+    filter:blur(18px); /* lighter blur for mobile performance */
+    transform:scale(1.15);
+}
+
 .wrapper{
     flex-direction:column;
-    justify-content:center;
-    padding-right:0;
+    justify-content:flex-start;
+    min-height:100svh;
+    padding:0;
 }
 
+/* PHOTO */
 .photo-box{
     width:100vw;
-    height:45vh;
+    height:52svh;
+    min-width:0;
 }
 
+.photo-box img{
+    object-position:center 35%;
+}
+
+/* CARD */
 .container{
-    margin-top:-70px;
-    width:90%;
+    width:92%;
+    margin-top:-60px;
+    padding:38px;
+    border-radius:26px;
+}
+
+/* TEXT */
+h1{
+    font-size:24px;
+}
+
+/* BUTTONS */
+button{
+    padding:14px 28px;
+    font-size:16px;
+}
+
+/* hearts slightly smaller on mobile */
+.hearts{
+    width:36px;
+    height:36px;
+}
+
+.hearts::before,
+.hearts::after{
+    width:36px;
+    height:36px;
 }
 
 }
