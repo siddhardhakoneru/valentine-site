@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Be My Valentine ❤️</title>
+
+<style>
+
+body{
+    margin:0;
+    font-family:'Comic Sans MS', cursive, sans-serif;
+    overflow:hidden;
+}
+
+/* BLURRED BACKGROUND */
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background:url("photo.jpg") 42% 30% / cover;
+    filter:blur(32px);
+    transform:scale(1.3);
+    z-index:-5;
+}
+
+/* LAYOUT */
+
+.wrapper{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    height:100vh;
+    padding-right:10vw;
+}
+
+/* PHOTO */
+
+.photo-box{
+    height:100vh;
+    width:48vw;
+    min-width:420px;
+    overflow:hidden;
+}
+
+.photo-box img{
+    height:100%;
+    width:100%;
+    object-fit:cover;
+    object-position:42% 30%;
+
+    mask-image:linear-gradient(
+        to right,
+        black 72%,
+        rgba(0,0,0,0.95) 80%,
+        rgba(0,0,0,0.65) 88%,
+        rgba(0,0,0,0.25) 94%,
+        transparent 100%
+    );
+}
+
+/* CARD */
+
+.container{
+    position:relative;
+    background:rgba(255,255,255,0.78);
+    backdrop-filter:blur(16px);
+    padding:60px;
+    border-radius:34px;
+    width:400px;
+    text-align:center;
+    box-shadow:0 45px 120px rgba(0,0,0,0.18);
+}
+
+h1{
+    color:#ff2e63;
+}
+
+/* BUTTONS */
+
+.buttons{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:20px;
+    margin-top:35px;
+}
+
+button{
+    padding:16px 38px;
+    font-size:18px;
+    border:none;
+    border-radius:18px;
+    cursor:pointer;
+}
+
+#yesBtn{
+    background:#ff2e63;
+    color:white;
+}
+
+#yesBtn:hover{
+    transform:scale(1.08);
+}
+
+#noBtn{
+    background:#eeeeee;
+    position:relative;
+    transition:all .18s ease-out;
+}
+
+/* MESSAGE */
+
+.message{
+    display:none;
+    color:#ff2e63;
+    font-size:24px;
+    line-height:1.6;
+}
+
+/* FLOATING HEARTS */
+
+.hearts{
+    position:fixed;
+    width:46px;
+    height:46px;
+    background:rgba(255,255,255,0.35);
+    backdrop-filter:blur(8px);
+    border-radius:50% 50% 0 0;
+    transform:rotate(-45deg);
+    animation:floatUp 6s linear forwards;
+}
+
+.hearts::before,
+.hearts::after{
+    content:"";
+    position:absolute;
+    width:46px;
+    height:46px;
+    background:rgba(255,255,255,0.35);
+    border-radius:50%;
+}
+
+.hearts::before{ top:-23px; }
+.hearts::after{ left:23px; }
+
+@keyframes floatUp{
+    from{
+        transform:translateY(0) rotate(-45deg);
+        opacity:1;
+    }
+    to{
+        transform:translateY(-1200px) rotate(-45deg);
+        opacity:0;
+    }
+}
+
+/* MOBILE */
+
+@media (max-width:900px){
+
+.wrapper{
+    flex-direction:column;
+    justify-content:center;
+    padding-right:0;
+}
+
+.photo-box{
+    width:100vw;
+    height:45vh;
+}
+
+.container{
+    margin-top:-70px;
+    width:90%;
+}
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+<audio id="music" autoplay loop>
+<source src="song.mp3" type="audio/mpeg">
+</audio>
+
+<div class="wrapper">
+
+<div class="photo-box">
+<img src="photo.jpg">
+</div>
+
+<div class="container">
+
+<h1 id="question">
+Ms. Mounica Bhanot,<br>
+will you be my Valentine? ❤️
+</h1>
+
+<div class="buttons">
+<button id="yesBtn">Yes 😍</button>
+<button id="noBtn">No 😢</button>
+</div>
+
+<div class="message" id="thankYou">
+<h1>You said YES!!! ❤️</h1>
+
+You make me the happiest man on earth 🫶🏽.<br><br>
+
+<strong>Always and forever ❤️</strong><br><br>
+
+<strong>I love you darling ❣️</strong>
+
+</div>
+
+</div>
+</div>
+
+
+<script>
+
+const noBtn = document.getElementById("noBtn");
+const container = document.querySelector(".container");
+const yesBtn = document.getElementById("yesBtn");
+const thankYou = document.getElementById("thankYou");
+const question = document.getElementById("question");
+const music = document.getElementById("music");
+
+
+function moveButton(){
+
+    const containerRect = container.getBoundingClientRect();
+    const btnRect = noBtn.getBoundingClientRect();
+
+    noBtn.style.position = "absolute";
+
+    noBtn.style.left = (btnRect.left - containerRect.left) + "px";
+    noBtn.style.top = (btnRect.top - containerRect.top) + "px";
+
+    const padding = 50;
+
+    const maxX = container.clientWidth - btnRect.width - padding;
+    const maxY = container.clientHeight - btnRect.height - padding;
+
+    const randomX = Math.random() * maxX;
+    const randomY = Math.random() * maxY;
+
+    requestAnimationFrame(()=>{
+        noBtn.style.left = randomX + "px";
+        noBtn.style.top = randomY + "px";
+    });
+}
+
+noBtn.addEventListener("mouseover", moveButton);
+
+
+/* YES CLICK */
+
+yesBtn.addEventListener("click",()=>{
+
+    music.play().catch(()=>{});
+
+    question.style.display="none";
+    yesBtn.style.display="none";
+    noBtn.style.display="none";
+
+    thankYou.style.display="block";
+
+    setInterval(()=>{
+
+        const heart=document.createElement("div");
+        heart.classList.add("hearts");
+
+        heart.style.left=Math.random()*100+"vw";
+        heart.style.bottom="-40px";
+
+        document.body.appendChild(heart);
+
+        setTimeout(()=>heart.remove(),6000);
+
+    },400);
+});
+
+</script>
+
+</body>
+</html>
