@@ -70,7 +70,10 @@ transition:.45s ease;
 }
 
 .card.glow{
-box-shadow:0 0 70px rgba(255,46,99,.7);
+box-shadow:
+0 0 40px rgba(255,46,99,.6),
+0 0 90px rgba(255,46,99,.4),
+0 0 140px rgba(255,46,99,.25);
 }
 
 /* ========= TEXT ========= */
@@ -197,7 +200,6 @@ opacity:0;
 </style>
 </head>
 
-
 <body>
 
 <div class="hero"></div>
@@ -236,10 +238,7 @@ You just made me the happiest man alive 🫶🏽<br><br>
 <!-- 🎵 MUSIC -->
 <audio id="loveSong" src="song.mp3"></audio>
 
-
 <script>
-
-/* ========= ELEMENTS ========= */
 
 const noBtn = document.getElementById("noBtn");
 const yesBtn = document.getElementById("yesBtn");
@@ -250,11 +249,7 @@ const song = document.getElementById("loveSong");
 const question = document.getElementById("question");
 const success = document.getElementById("success");
 
-
-/* ========= MESSAGE LOOP ========= */
-
 const messages = [
-
 "Are you absolutely sure? 🥺",
 "Think again… I was planning something special ❤️",
 "Don’t break my tiny digital heart 💔",
@@ -265,12 +260,10 @@ const messages = [
 "Come on… you know it's YES 😏",
 "My heart is buffering…",
 "Fine… I’ll wait forever. But the YES looks cute 👀"
-
 ];
 
 let clickCount = 0;
 let yesScale = 1;
-
 
 /* ========= NO CLICK ========= */
 
@@ -281,21 +274,17 @@ plea.classList.add("show");
 
 card.classList.add("glow");
 
-/* grow YES */
 yesScale += 0.08;
 if(yesScale > 1.7) yesScale = 1.7;
 
 yesBtn.style.transform = `scale(${yesScale})`;
 
-/* bounce */
 yesBtn.classList.add("bounce");
 setTimeout(()=>yesBtn.classList.remove("bounce"),350);
 
-/* shrink NO */
 noBtn.style.transform = "scale(.85)";
 noBtn.style.opacity = ".7";
 
-/* shake */
 noBtn.classList.add("shake");
 setTimeout(()=>noBtn.classList.remove("shake"),400);
 
@@ -303,10 +292,12 @@ clickCount++;
 
 });
 
-
 /* ========= YES CLICK ========= */
 
 yesBtn.addEventListener("click",()=>{
+
+/* 🔥 ADD GLOW HERE */
+card.classList.add("glow");
 
 question.style.display="none";
 plea.style.display="none";
@@ -315,12 +306,10 @@ noBtn.style.display="none";
 
 success.style.display="block";
 
-/* ⭐ INSTANT MUSIC */
-
-song.volume = 1;  
+/* INSTANT MUSIC */
+song.volume = 1;
 song.currentTime = 0;
-song.play().catch(()=>{}); // prevents browser tantrums
-
+song.play().catch(()=>{});
 
 /* floating hearts */
 
@@ -345,5 +334,3 @@ setTimeout(()=>heart.remove(),6000);
 
 </body>
 </html>
-
-
